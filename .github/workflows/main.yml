@@ -10,11 +10,14 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      # إضافة خطوة لضمان التوافق مع إعدادات gradle
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+      # هنا سنقوم بتحميل نسخة gradle وتثبيتها يدوياً
       - name: Build with Gradle
-        run: ./gradlew assembleDebug --stacktrace
+        run: |
+          wget https://services.gradle.org/distributions/gradle-8.3-bin.zip
+          mkdir -p /opt/gradle
+          unzip -d /opt/gradle gradle-8.3-bin.zip
+          export PATH=$PATH:/opt/gradle/gradle-8.3/bin
+          gradle assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:

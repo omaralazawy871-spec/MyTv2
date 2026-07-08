@@ -1,4 +1,4 @@
-package com.example.iptv
+package com.example.mytv2
 
 import android.app.Activity
 import android.os.Bundle
